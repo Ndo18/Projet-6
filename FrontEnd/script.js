@@ -23,24 +23,59 @@ for (let i = 0; i < tabProjets.length; i++) {
     figure.appendChild(imageElement)
     figure.appendChild(figcaption)
     gallery.appendChild(figure)
-}
-
-
-}
+}}
 genererProjets()
 
-const btnObj = document.querySelector(".btn-obj")
+async function filtreProjet (){
+    const reponse = await fetch("http://localhost:5678/api/categories")
+    const tabCategories = await reponse.json()
+    const resp = await fetch("http://localhost:5678/api/works")
+    const tabProjets = await resp.json()
+
+        /* BOUTON TOUS */
+        const btnTous = document.querySelector(".btn-tous")
+        /* BOUTON OBJETS */
+        const btnObj = document.querySelector(".btn-obj")
+        /* BOUTON APPARTEMENTS */
+        const btnAppt = document.querySelector(".btn-appt")
+        /* BOUTON HÔTELS & RESTAURANTS */
+        const btnHtlresto = document.querySelector(".btn-htlresto")
+
+        btnTous.addEventListener("click", () => {
+            document.querySelector(".gallery").innerHTML=""
+            genererProjets()
+        })
 
         btnObj.addEventListener("click", () => {
+            document.querySelector(".gallery").innerHTML=""
+            const objFiltre = tabCategories.filter(tabCategories => tabCategories.category.id === 1)
+           
+            console.log(objFiltre)
+            // objFiltre.innerHTML = genererProjets() + objFiltre
+            // console.log(btnObj);
+            /* afficher les éléments qui n'ont que l'id 1*/
+            // if (tabProjets.category === tabCategories){
+
+            // }
+
+    
+        })
+        genererProjets(objFiltre)
+    }
+
+filtreProjet()
+
+
+        // btnObj.addEventListener("click", () => {
         //     const triObj = tabProjets.category[i]
         //     console.log(triObj)
-        // // for (let i = 0; i < tabProjets.length; i++){
+        // for (let i = 0; i < tabProjets.length; i++){
 
-        // //     const triObj = tabProjets[i].category[i,1]
-        // //     // if(triObj )
+        //     const triObj = tabProjets[i].category[i,1]
+        //     // if(triObj )
     
         // }
-        console.log(tabProjets.id)
+        // console.log(tabProjets.id)
         
-        })
+        // })
     
