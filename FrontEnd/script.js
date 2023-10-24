@@ -43,10 +43,55 @@ async function genererProjets(){
         for(let i = 0; i < cat.length; i++){
             const btnFiltres = document.createElement("button")
             btnFiltres.innerText = cat[i].name
+            btnFiltres.classList.add("btn-" + i)
             
-            divFiltres.appendChild(btnFiltres) 
+            divFiltres.appendChild(btnFiltres)
         }   
+
+        /* CREATION FILTRES*/
+
+        /*FILTRE TOUS*/
+        btnTous.addEventListener("click", () => {
+            document.querySelector(".gallery").innerHTML=""
+            genererProjets()
+        })
+
+        /* FILTRE OBJETS*/
+        const btnObj = document.querySelector(".btn-0")
+
+        btnObj.addEventListener("click", () => {
+            console.log("Je filtre obj");
+        })
+
+        /*FILTRE APPARTEMENT*/
+        const btnAppt = document.querySelector(".btn-1")
+
+        btnAppt.addEventListener("click", () => {
+            console.log("Je filtre appartement");
+        })
+        /*FILTRE HOTELS & RESTAURANTS*/
+        const btnHtlResto = document.querySelector(".btn-2")
+
+        btnHtlResto.addEventListener("click", () => {
+            console.log("Je filtre hotels resto");
+        })
+
     }
     genererBtn()
 
+    // async function filtresCategory () {
+    //     const reponse = await fetch("http://localhost:5678/api/works")
+    //     const tabProjets = await reponse.json()
+    //     genererBtn()
+        
+    //     const btnTous = document.querySelector(".btn-tous")
+        
+    //     btnTous.addEventListener("click", () =>{
+    //         console.log("Je click")
+    //     })
+
+        
+    // }
+
     /* IL FAUT RECREER LES BALISES A AFFICHER LORS DU CLICK */
+
