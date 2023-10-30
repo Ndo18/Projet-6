@@ -93,8 +93,7 @@ async function genererProjets(){
                 
             })
             
-        })
-        
+        })  
     }
     genererBtn()
     
