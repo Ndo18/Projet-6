@@ -98,6 +98,16 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+li a {
+	text-decoration: none;
+	color: black;
+}
+
+li a:hover {
+	color: #B1663C;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -191,7 +201,31 @@ footer nav ul {
 	margin: 2em
 }
 
-/* PAGE DE CONNEXION */
+/* MODE EDITION */
+
+.editionmode{
+	display: flex;
+	background-color: black;
+	padding: 20px;
+	/* width: 100%; */
+}
+
+#band p{
+	color: white;
+	margin: auto;
+}
+
+.titreprojets{
+	display: flex;
+	justify-content: center;
+}
+
+.titreprojets i, p{
+	color: black;
+	font-size: 14px;
+	margin-left: 10px;
+	margin-top: 5px;
+}
 
 
 
