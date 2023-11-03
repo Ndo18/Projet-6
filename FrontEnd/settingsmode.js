@@ -21,7 +21,7 @@ if(stockToken == ""){
 
     //MES PROJETS
     const titreProjets = document.querySelector(".titreprojets")
-    const textEditionProjets = document.createElement("p")
+    const textEditionProjets = document.createElement("button")
     textEditionProjets.innerText = " Modifier"
     const iconeModif2 = document.createElement("i")
     iconeModif2.classList.add("fa-regular", "fa-pen-to-square")
