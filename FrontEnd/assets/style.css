@@ -84,6 +84,12 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+h3{
+	font-family: 'Work Sans';
+	font-size: 26px;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -193,6 +199,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -236,11 +243,15 @@ footer nav ul {
 /* MODALE */
 
 .modale-container{
-	/* display: none; */
+	display: none;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.modalepop{
+	display: block;
 }
 
 .overlay{
@@ -252,12 +263,14 @@ opacity: 0.5;
 }
 
 .modale{
+	display: flex;
+	flex-direction: column;
 	position: absolute;
 	background-color: white;
-	top: 20%;
+	top: 5%;
 	right: 20%;
 	width: 50%;
-	height: 70%;
+	height: 85%;
 	padding: 10px;
 	border-radius: 5px;
 }
@@ -270,7 +283,40 @@ opacity: 0.5;
 	font-size: 15px;
 	right: 10px;
 	cursor: pointer;
+	z-index: 3;
 }
 
+.modale h3{
+	text-align: center;
+	margin-top: 40PX;
+	margin-bottom: 40px;
+}
 
+.gallerymodale{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding-left: 75px;
+	width: 80%;
+}
 
+.gallerymodale figure img{
+	height: 100px;
+	object-fit: cover;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+#btnAjouter{
+	padding: 15px;
+	border: none;
+}
+
+/* #btnAjouter::after{
+	display: block;
+	content: '';
+	background-color: #B3B3B3;
+	height: 10px;
+	width: 60px;
+	padding-top: 50px;
+} */

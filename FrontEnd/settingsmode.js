@@ -23,6 +23,7 @@ if(stockToken == ""){
     const titreProjets = document.querySelector(".titreprojets")
     const textEditionProjets = document.createElement("button")
     textEditionProjets.innerText = " Modifier"
+    textEditionProjets.classList.add("btnmodifier")
     const iconeModif2 = document.createElement("i")
     iconeModif2.classList.add("fa-regular", "fa-pen-to-square")
 
