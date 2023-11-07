@@ -61,7 +61,7 @@ async function genererProjets(){
             genererProjets()
         })
         
-        /* FILTRE OBJETS*/
+        /* FILTRES*/
         const btnFiltres = document.querySelectorAll(".btn")
         
         btnFiltres.forEach((btn) => {
