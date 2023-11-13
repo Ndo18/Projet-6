@@ -288,6 +288,10 @@ footer nav ul {
 	display: block;
 }
 
+.modaleclose{
+	display: none;
+}
+
 .overlay{
 	position: absolute;
 	width: 100%;
@@ -297,6 +301,19 @@ footer nav ul {
 }
 
 .modale{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	background-color: white;
+	top: 5%;
+	right: 20%;
+	width: 50%;
+	height: 85%;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.modale2{
 	display: flex;
 	flex-direction: column;
 	position: absolute;
@@ -343,6 +360,11 @@ footer nav ul {
 	margin-bottom: 40px;
 }
 
+.modale2 h3{
+	text-align: center;
+	margin-top: 40PX;
+}
+
 .gallerymodale{
 	display: flex;
 	flex-direction: row;
@@ -361,6 +383,7 @@ footer nav ul {
 #btnAjouter, #btnValider{
 	padding: 15px;
 	border: none;
+	margin: auto;
 }
 
 #formulairecontent {
@@ -401,11 +424,36 @@ footer nav ul {
 	display: none;
 }
 
-#formulairecontent label#ajoutfichier{
+.modale2 label[for = ajoutfichier]{
+	display: flex;
 	flex-direction: column;
+	align-items: center;
+	background-color: #E8F1F6;
+	/* padding: 25px; */
+}
+label[for = ajoutfichier] p{
+	color: #306685;
+	background-color: #CBD6DC;
+	padding: 10px;
+	border-radius: 20px;
+	margin: auto;
+}
+.modale2 .fa-image{
+	font-size: 50px;
+	margin-bottom: 15px;
+	color: #CBD6DC;
 }
 
+label[for = ajoutfichier] img{
+	width: 50%;
+	padding: 0px;
+	/* height: 100%; */
+	object-fit: cover;
+}
 
+.hideall{
+	display: none;
+}
 
 
 

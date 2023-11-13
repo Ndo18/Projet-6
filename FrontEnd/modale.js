@@ -1,3 +1,11 @@
+//OUVERTURE MODALE
+const btnModif = document.querySelector(".btnmodifier")
+
+btnModif.addEventListener("click", () =>{
+    const modalContainer = document.querySelector(".modale-container")
+    modalContainer.classList.add("modalepop")
+})
+
 function ouvertureModale(){
     //CREATION MODALE
     
@@ -49,21 +57,9 @@ function ouvertureModale(){
     modale.appendChild(btnAjouter)
     modale.appendChild(previousBtn)
     previousBtn.appendChild(previousArrow)
-    
-    // previousBtn.addEventListener("click", () => {
-    //     ouvertureModale()
-    //     genererImgProjets()
-    // })
+  
 }
 ouvertureModale()
-
-//OUVERTURE MODALE
-const btnModif = document.querySelector(".btnmodifier")
-
-btnModif.addEventListener("click", () =>{
-    const modalContainer = document.querySelector(".modale-container")
-    modalContainer.classList.add("modalepop")
-})
 
 //FERMETURE MODALE
 const btnCloseModale = document.querySelector(".close-btn")
@@ -79,28 +75,28 @@ overlayClose.addEventListener("click", () => {
     modalContainer.classList.remove("modalepop")
 })
 
-
-
 //PAGE AJOUT PROJETS
 btnAjouter.addEventListener("click", () => {
     ajoutProjets()
 })
 
 async function ajoutProjets(){
-    
-    const modale = document.querySelector(".modale")
-    const galleryModale = document.querySelector(".gallerymodale")
-    galleryModale.remove()
-    const btnAjouter = document.getElementById("btnAjouter")
-    btnAjouter.remove()
+    const modalContainer = document.querySelector(".modale-container")
+    const modale2 = document.createElement("div")
+    modale2.classList.add("modale2")
     
     const previousBtn = document.getElementById("previousbtn")
     previousBtn.classList.remove("previous-hide")
     previousBtn.classList.add("previous-btn")
-    
+
+    // //PRECEDENT
+    previousBtn.addEventListener("click", () => {
+        modale2.classList.remove("modale2")
+        modale2.classList.add("modaleclose")
+    })
     
     //TITRE MODALE AJOUT PROJET
-    const modaleTitle = document.querySelector("h3")
+    const modaleTitle = document.createElement("h3")
     modaleTitle.innerText = "Ajout photo"
     
     //FORMULAIRE
@@ -113,11 +109,28 @@ async function ajoutProjets(){
     titreajoutFichier.setAttribute("for", "ajoutfichier")
     const iconeLabel = document.createElement("i")
     iconeLabel.classList.add("fa-regular", "fa-image")
-    titreajoutFichier.innerText = "+ Ajouter photo"
+    const labelText = document.createElement("p")
+    labelText.innerText = "+ Ajouter photo"
     const ajouterFichier = document.createElement("input")
     ajouterFichier.type = "file"
     ajouterFichier.id = "ajoutfichier"
     ajouterFichier.name = "ajoutfichier"
+    //APERCU IMG
+    const ImgPreview = document.createElement("img")
+    ajouterFichier.addEventListener("change", () => {
+        const file = ajouterFichier.files[0]
+        if(file){
+            iconeLabel.remove()
+            labelText.classList.add("hideall")
+            // titreajoutFichier.classList.add("labelpadding")
+            imageURl = URL.createObjectURL(file)
+            ImgPreview.src = imageURl
+        } else {
+            ImgPreview.src = ""
+            // iconeLabel.style.display = "inline"
+            // labelText.classList.remove("hideall")
+        }
+    })
     //TITRE
     const ajoutphotoLabel = document.createElement("label")
     ajoutphotoLabel.setAttribute("for", "titleprojet")
@@ -156,14 +169,17 @@ async function ajoutProjets(){
     btnValider.id = "btnValider"
     
     //ELEMENTS MODALE
-    modale.appendChild(modaleTitle)
-    modale.appendChild(previousBtn)
-    modale.appendChild(formulaireContent)
-    modale.appendChild(btnValider)
+    modalContainer.appendChild(modale2)
+    modale2.appendChild(modaleTitle)
+    modale2.appendChild(previousBtn)
+    modale2.appendChild(formulaireContent)
+    modale2.appendChild(btnValider)
     //FORMULAIRE SECTION
     formulaireContent.appendChild(form)
     //ELEMENTS FORMULAIRE
+    titreajoutFichier.prepend(labelText)
     titreajoutFichier.prepend(iconeLabel)
+    titreajoutFichier.prepend(ImgPreview)
     form.appendChild(titreajoutFichier)
     form.appendChild(ajouterFichier)
     form.appendChild(ajoutphotoLabel)
@@ -181,7 +197,6 @@ async function ajoutProjets(){
         
         console.log("oui");
     })
-
 }
 
 //AFFICHER PROJETS DANS LA MODALE
