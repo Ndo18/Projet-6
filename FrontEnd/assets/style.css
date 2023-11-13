@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
+v2.0 | 20110126
+License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -75,7 +75,7 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
+	;
 }
 
 h2{
@@ -94,7 +94,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	
 }
 nav li {
 	padding: 0 10px;
@@ -157,15 +157,15 @@ li a:hover {
 
 .gallery img {
 	width: 100%;
-
+	
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
-
+	
 }
 #contact h2{
 	margin-bottom: 20px;
@@ -289,11 +289,11 @@ footer nav ul {
 }
 
 .overlay{
-position: absolute;
-width: 100%;
-height: 100%;
-background-color: black;
-opacity: 0.5;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
 }
 
 .modale{
@@ -358,10 +358,56 @@ opacity: 0.5;
 	margin-bottom: 20px;
 }
 
-#btnAjouter{
+#btnAjouter, #btnValider{
 	padding: 15px;
 	border: none;
 }
+
+#formulairecontent {
+	width: 50%;
+	margin: auto;
+}
+
+#formulairecontent form {
+	text-align: left;
+	/* margin-top:30px; */
+	display: flex;
+	flex-direction: column;
+}
+
+#formulairecontent input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#formulairecontent label {
+	margin: 2em 0 1em 0;
+}
+#formulairecontent textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#formulairecontent select{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	background-color: white;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#formulairecontent input[type=file]{
+	display: none;
+}
+
+#formulairecontent label#ajoutfichier{
+	flex-direction: column;
+}
+
+
+
+
 
 /* #btnAjouter::after{
 	display: block;

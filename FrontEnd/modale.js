@@ -49,7 +49,7 @@ function ouvertureModale(){
     modale.appendChild(btnAjouter)
     modale.appendChild(previousBtn)
     previousBtn.appendChild(previousArrow)
-
+    
     // previousBtn.addEventListener("click", () => {
     //     ouvertureModale()
     //     genererImgProjets()
@@ -87,19 +87,19 @@ btnAjouter.addEventListener("click", () => {
 })
 
 async function ajoutProjets(){
-
+    
     const modale = document.querySelector(".modale")
     const galleryModale = document.querySelector(".gallerymodale")
     galleryModale.remove()
     const btnAjouter = document.getElementById("btnAjouter")
     btnAjouter.remove()
-
+    
     const previousBtn = document.getElementById("previousbtn")
     previousBtn.classList.remove("previous-hide")
     previousBtn.classList.add("previous-btn")
     
     
-    //TITRE MODALE
+    //TITRE MODALE AJOUT PROJET
     const modaleTitle = document.querySelector("h3")
     modaleTitle.innerText = "Ajout photo"
     
@@ -108,27 +108,80 @@ async function ajoutProjets(){
     formulaireContent.id = "formulairecontent"
     const form = document.createElement("form")
     form.method = "POST"
+    //AJOUTER UN FICHIER
     const titreajoutFichier = document.createElement("label")
-    titreajoutFichier.for = "ajoutfichier"
-    titreajoutFichier.innerText = "Ajouter un fichier"
-
+    titreajoutFichier.setAttribute("for", "ajoutfichier")
+    const iconeLabel = document.createElement("i")
+    iconeLabel.classList.add("fa-regular", "fa-image")
+    titreajoutFichier.innerText = "+ Ajouter photo"
     const ajouterFichier = document.createElement("input")
     ajouterFichier.type = "file"
     ajouterFichier.id = "ajoutfichier"
     ajouterFichier.name = "ajoutfichier"
+    //TITRE
+    const ajoutphotoLabel = document.createElement("label")
+    ajoutphotoLabel.setAttribute("for", "titleprojet")
+    ajoutphotoLabel.innerText = "Titre"
+    const ajoutphotoTitle = document.createElement("input")
+    ajoutphotoTitle.type = "text"
+    ajoutphotoTitle.name = "title"
+    ajoutphotoTitle.id = "titleprojet"
+    //LISTE DEROULANTE
+    const r = await fetch("http://localhost:5678/api/categories")
+    const listCategory = await r.json()
+    const labelSelect = document.createElement("label")
+    labelSelect.for = "category"
+    labelSelect.innerText = "Catégorie"
+    const select = document.createElement("select")
+    select.name = "category"
     
+    const optionVide = document.createElement("option")
+    optionVide.text = ""
+    optionVide.value = ""
+    
+    select.appendChild(optionVide)
+    
+    for (let i = 0; i < listCategory.length; i++){
+        const listderoulante = document.createElement("option")
+        listderoulante.text = listCategory[i].name
+        listderoulante.value = listCategory[i].id
+        
+        select.appendChild(listderoulante)
+    }
+    
+    //BOUTON SUBMIT API
+    const btnValider = document.createElement("input")
+    btnValider.type = "submit"
+    btnValider.value = "Valider"
+    btnValider.id = "btnValider"
+    
+    //ELEMENTS MODALE
     modale.appendChild(modaleTitle)
-    modale.appendChild(closeBtn)
     modale.appendChild(previousBtn)
-    previousBtn.prepend(previousArrow)
     modale.appendChild(formulaireContent)
+    modale.appendChild(btnValider)
+    //FORMULAIRE SECTION
     formulaireContent.appendChild(form)
+    //ELEMENTS FORMULAIRE
+    titreajoutFichier.prepend(iconeLabel)
     form.appendChild(titreajoutFichier)
     form.appendChild(ajouterFichier)
-
-    console.log(formulaireContent);
-
+    form.appendChild(ajoutphotoLabel)
+    form.appendChild(ajoutphotoTitle)
+    form.appendChild(labelSelect)
+    form.appendChild(select)  
     
+    btnValider.addEventListener("submit", (event) => {
+        event.preventDefault()
+        if(ajoutphotoTitle.value == "" && select.value == ""){
+            btnValider.disabled = true
+        } else{
+            btnValider.disabled = false
+        }
+        
+        console.log("oui");
+    })
+
 }
 
 //AFFICHER PROJETS DANS LA MODALE
@@ -152,11 +205,10 @@ async function genererImgProjets(){
         /* AJOUT DES ÉLÉMENTS À LA STRUCTURE HTML */
         galleryModale.appendChild(figure)
         figure.appendChild(imageElement)
-    }}
-    genererImgProjets()
-    
-    //AFFICHER UN BOUTON ICONE CORBEILLE FOR EACH PROJETS
-    
-    
-    
-    
+    }
+}
+genererImgProjets()
+
+//AFFICHER UN BOUTON ICONE CORBEILLE FOR EACH PROJETS
+
+
