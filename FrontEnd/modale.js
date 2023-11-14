@@ -167,6 +167,33 @@ async function ajoutProjets(){
     btnValider.type = "submit"
     btnValider.value = "Valider"
     btnValider.id = "btnValider"
+    btnValider.disabled = btnValider.classList.add("btndisable")
+
+    //ENVOI PROJET API
+    modale2.addEventListener("submit", async (event) => {
+        event.preventDefault()
+
+        const imgUpload = ""
+        const titreUpload = document.getElementById("titleprojet").value
+        const categoryUpload = document.querySelector("select").value
+
+        if( imgUpload == "" || titreUpload == "" || categoryUpload == ""){
+            console.log("Erreur champ(s) manquant(s)");
+        } else{
+            const reponse = await fetch("http://localhost:5678/api/works", {
+                method : "POST",
+                body : JSON.stringify({
+                    "imageUrl" : imgUpload,
+                    "titre" : titreUpload,
+                    "categroryId" : categoryUpload,
+                }),
+                headers : {"Content-Type" : "application/json"}
+            })
+            const r = await reponse.json
+        }
+        // btnValider.disabled = ajoutphotoTitle.value === "" && select.value === ""
+        // console.log("oui");
+    })
     
     //ELEMENTS MODALE
     modalContainer.appendChild(modale2)
@@ -187,16 +214,6 @@ async function ajoutProjets(){
     form.appendChild(labelSelect)
     form.appendChild(select)  
     
-    btnValider.addEventListener("submit", (event) => {
-        event.preventDefault()
-        if(ajoutphotoTitle.value == "" && select.value == ""){
-            btnValider.disabled = true
-        } else{
-            btnValider.disabled = false
-        }
-        
-        console.log("oui");
-    })
 }
 
 //AFFICHER PROJETS DANS LA MODALE
@@ -212,14 +229,23 @@ async function genererImgProjets(){
         
         /* CRÉATION DE LA BALISE FIGURE */
         const figure = document.createElement("figure")
+        figure.classList.add("figuremodale")
         
         /* CRÉATION DE L'ÉLÉMENT IMAGE */
         const imageElement = document.createElement("img")
         imageElement.src = tabProjets[i].imageUrl
+
+        //CREATION ICONE SUPPRESSION
+        const iconeSupprContent = document.createElement("div")
+        iconeSupprContent.classList.add("iconesupp")
+        const iconeSuppr = document.createElement("i")
+        iconeSuppr.classList.add("fa-solid", "fa-trash-can")
         
         /* AJOUT DES ÉLÉMENTS À LA STRUCTURE HTML */
         galleryModale.appendChild(figure)
+        figure.appendChild(iconeSupprContent)
         figure.appendChild(imageElement)
+        iconeSupprContent.prepend(iconeSuppr)
     }
 }
 genererImgProjets()

@@ -455,7 +455,32 @@ label[for = ajoutfichier] img{
 	display: none;
 }
 
+/* .btndisable{
+		font-family: 'Syne';
+		font-weight: 700;
+		color: white;
+		background-color: grey;
+		margin : 2em auto ;
+		width: 180px;
+		text-align: center;
+		border-radius: 60px ;
+} */
 
+.figuremodale{
+	position: relative;
+}
+
+.fa-trash-can{
+	position: absolute;
+	color: white;
+	background-color: black;
+	border-radius: 3px;
+	padding: 5px;
+	top: 5px;
+	right: 15px;
+	font-size: 12px;
+	cursor: pointer;
+}
 
 /* #btnAjouter::after{
 	display: block;

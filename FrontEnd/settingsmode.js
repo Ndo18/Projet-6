@@ -43,6 +43,10 @@ if(stockToken == ""){
     const logoutBtn = document.getElementById("textlogout")
     logoutBtn.innerText = "logout"
 
+    // logoutBtn.addEventListener("click", () => {
+    //     window.localStorage.removeItem("token", body.token)
+    //     console.log("je logoff");
+    // })  
     // console.log(logoutBtn);
 
 }
