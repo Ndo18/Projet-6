@@ -405,7 +405,7 @@ footer nav ul {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #formulairecontent label {
-	margin: 2em 0 1em 0;
+	margin: 2em 0 0 0;
 }
 #formulairecontent textarea {
 	border: none;
@@ -429,7 +429,6 @@ footer nav ul {
 	flex-direction: column;
 	align-items: center;
 	background-color: #E8F1F6;
-	/* padding: 25px; */
 }
 label[for = ajoutfichier] p{
 	color: #306685;
@@ -437,9 +436,11 @@ label[for = ajoutfichier] p{
 	padding: 10px;
 	border-radius: 20px;
 	margin: auto;
+	margin-bottom: 25px;
 }
 .modale2 .fa-image{
 	font-size: 50px;
+	margin-top: 25px;
 	margin-bottom: 15px;
 	color: #CBD6DC;
 }
@@ -447,24 +448,13 @@ label[for = ajoutfichier] p{
 label[for = ajoutfichier] img{
 	width: 50%;
 	padding: 0px;
-	/* height: 100%; */
-	object-fit: cover;
+	height: 175px;
+	object-fit: contain;
 }
 
 .hideall{
 	display: none;
 }
-
-/* .btndisable{
-		font-family: 'Syne';
-		font-weight: 700;
-		color: white;
-		background-color: grey;
-		margin : 2em auto ;
-		width: 180px;
-		text-align: center;
-		border-radius: 60px ;
-} */
 
 .figuremodale{
 	position: relative;
@@ -482,11 +472,10 @@ label[for = ajoutfichier] img{
 	cursor: pointer;
 }
 
-/* #btnAjouter::after{
+.imgpreview{
+	display: none;
+}
+
+.imgpreviewappear{
 	display: block;
-	content: '';
-	background-color: #B3B3B3;
-	height: 10px;
-	width: 60px;
-	padding-top: 50px;
-} */
+}

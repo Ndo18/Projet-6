@@ -117,14 +117,17 @@ async function ajoutProjets(){
     ajouterFichier.name = "ajoutfichier"
     //APERCU IMG
     const ImgPreview = document.createElement("img")
+    ImgPreview.classList.add("imgpreview")
     ajouterFichier.addEventListener("change", () => {
         const file = ajouterFichier.files[0]
         if(file){
             iconeLabel.remove()
             labelText.classList.add("hideall")
-            // titreajoutFichier.classList.add("labelpadding")
             imageURl = URL.createObjectURL(file)
             ImgPreview.src = imageURl
+            ImgPreview.classList.remove("imgpreview")
+            ImgPreview.classList.add("imgpreviewappear")
+
         } else {
             ImgPreview.src = ""
             // iconeLabel.style.display = "inline"
@@ -146,6 +149,7 @@ async function ajoutProjets(){
     labelSelect.for = "category"
     labelSelect.innerText = "Catégorie"
     const select = document.createElement("select")
+    select.id = "catprojet"
     select.name = "category"
     
     const optionVide = document.createElement("option")
@@ -167,29 +171,35 @@ async function ajoutProjets(){
     btnValider.type = "submit"
     btnValider.value = "Valider"
     btnValider.id = "btnValider"
-    btnValider.disabled = btnValider.classList.add("btndisable")
 
     //ENVOI PROJET API
     modale2.addEventListener("submit", async (event) => {
         event.preventDefault()
 
-        const imgUpload = ""
+        const imgUpload = document.querySelector(".imgpreviewappear").src
         const titreUpload = document.getElementById("titleprojet").value
-        const categoryUpload = document.querySelector("select").value
+        const categoryUpload = document.getElementById("catprojet").value
 
-        if( imgUpload == "" || titreUpload == "" || categoryUpload == ""){
+        console.log(imgUpload);
+        console.log(titreUpload);
+        console.log(categoryUpload);
+
+        if( imgUpload === "" || titreUpload === "" || categoryUpload === ""){
             console.log("Erreur champ(s) manquant(s)");
         } else{
             const reponse = await fetch("http://localhost:5678/api/works", {
                 method : "POST",
                 body : JSON.stringify({
-                    "imageUrl" : imgUpload,
                     "titre" : titreUpload,
-                    "categroryId" : categoryUpload,
+                    "imageUrl" : imgUpload,
+                    "categoryId" : categoryUpload,
                 }),
-                headers : {"Content-Type" : "application/json"}
+                headers : {"Content-Type" : "multipart/form-data"}
             })
-            const r = await reponse.json
+            const r = await reponse.json()
+            console.log(r);
+
+            // window.location.reload()
         }
         // btnValider.disabled = ajoutphotoTitle.value === "" && select.value === ""
         // console.log("oui");
@@ -240,7 +250,18 @@ async function genererImgProjets(){
         iconeSupprContent.classList.add("iconesupp")
         const iconeSuppr = document.createElement("i")
         iconeSuppr.classList.add("fa-solid", "fa-trash-can")
-        
+        //SUPPRESSION PROJETS
+        iconeSuppr.addEventListener("click", async () => {
+            const reponse = await fetch("http://localhost:5678/api/works/{id}", {
+                method : "DELETE",
+                body : JSON.stringify ({
+
+                }),
+                headers : {"Content-Type" : "multipart/form-data"}
+            })
+            const r = await reponse.json()
+        })
+
         /* AJOUT DES ÉLÉMENTS À LA STRUCTURE HTML */
         galleryModale.appendChild(figure)
         figure.appendChild(iconeSupprContent)
@@ -249,7 +270,5 @@ async function genererImgProjets(){
     }
 }
 genererImgProjets()
-
-//AFFICHER UN BOUTON ICONE CORBEILLE FOR EACH PROJETS
 
 
