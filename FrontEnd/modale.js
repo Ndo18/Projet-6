@@ -172,6 +172,15 @@ async function ajoutProjets(){
     btnValider.value = "Valider"
     btnValider.id = "btnValider"
 
+    //BOUTON DISABLED
+    btnValider.addEventListener("change", () => {
+        if(ajoutphotoTitle === "" || ImgPreview.src === "" || select === ""){
+            btnValider.disabled = true
+        } else {
+            btnValider.disabled = false
+        }
+    })
+
     //ENVOI PROJET API
     modale2.addEventListener("submit", async (event) => {
         event.preventDefault()
@@ -201,8 +210,6 @@ async function ajoutProjets(){
 
             // window.location.reload()
         }
-        // btnValider.disabled = ajoutphotoTitle.value === "" && select.value === ""
-        // console.log("oui");
     })
     
     //ELEMENTS MODALE
