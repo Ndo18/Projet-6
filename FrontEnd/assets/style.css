@@ -479,3 +479,7 @@ label[for = ajoutfichier] img{
 .imgpreviewappear{
 	display: block;
 }
+
+.logoutbtn{
+	cursor: pointer;
+}

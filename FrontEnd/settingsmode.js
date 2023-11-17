@@ -1,6 +1,8 @@
 const stockToken = localStorage.getItem("token")
+console.log(stockToken);
 
-if(stockToken == ""){
+if(stockToken === ""){
+    // window.location.href = "./"
     console.log("vous n'êtes pas connecté");
 } else {
     //BARRE MODE EDITION
@@ -15,7 +17,6 @@ if(stockToken == ""){
 
     textEdition.prepend(iconeModif)
     bandEdition.appendChild(textEdition)
-    // console.log(iconeModif);
 
     console.log("vous êtes connecté");
 
@@ -29,24 +30,24 @@ if(stockToken == ""){
 
     textEditionProjets.prepend(iconeModif2)
     titreProjets.appendChild(textEditionProjets)
-    // console.log(titreProjets);
 
     //RETRAIT FILTRES
-
     const mesFiltres = document.querySelector(".filtres")
     mesFiltres.remove()
-
-    // console.log(mesFiltres);
 
     //MODIFIER BOUTON LOGIN LOGOUT
 
     const logoutBtn = document.getElementById("textlogout")
+    logoutBtn.classList.add("logoutbtn")
     logoutBtn.innerText = "logout"
-
-    // logoutBtn.addEventListener("click", () => {
-    //     window.localStorage.removeItem("token", body.token)
-    //     console.log("je logoff");
-    // })  
-    // console.log(logoutBtn);
-
+   
+    //DECONNECTION
+    
+    // const logoutBtn = document.getElementById("textlogout")
+    
+    logoutBtn.addEventListener("click", () => {
+        window.localStorage.clear()
+        window.location.reload()
+    })  
+    console.log(logoutBtn);
 }

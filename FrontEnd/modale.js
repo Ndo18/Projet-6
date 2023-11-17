@@ -174,7 +174,7 @@ async function ajoutProjets(){
 
     //BOUTON DISABLED
     btnValider.addEventListener("change", () => {
-        if(ajoutphotoTitle === "" || ImgPreview.src === "" || select === ""){
+        if(ajoutphotoTitle.value == "" || ImgPreview.src == "" || select.value == ""){
             btnValider.disabled = true
         } else {
             btnValider.disabled = false
@@ -188,7 +188,7 @@ async function ajoutProjets(){
         const imgUpload = document.querySelector(".imgpreviewappear").src
         const titreUpload = document.getElementById("titleprojet").value
         const categoryUpload = document.getElementById("catprojet").value
-
+        const stockToken = localStorage.getItem("token")
         console.log(imgUpload);
         console.log(titreUpload);
         console.log(categoryUpload);
@@ -196,6 +196,7 @@ async function ajoutProjets(){
         if( imgUpload === "" || titreUpload === "" || categoryUpload === ""){
             console.log("Erreur champ(s) manquant(s)");
         } else{
+            window.localStorage.getItem("token")
             const reponse = await fetch("http://localhost:5678/api/works", {
                 method : "POST",
                 body : JSON.stringify({
@@ -203,12 +204,13 @@ async function ajoutProjets(){
                     "imageUrl" : imgUpload,
                     "categoryId" : categoryUpload,
                 }),
-                headers : {"Content-Type" : "multipart/form-data"}
+                headers : {"Content-Type" : "multipart/form-data",
+                "Authorization": `Bearer ${stockToken}`}
             })
             const r = await reponse.json()
             console.log(r);
 
-            // window.location.reload()
+            window.location.reload()
         }
     })
     
@@ -264,7 +266,8 @@ async function genererImgProjets(){
                 body : JSON.stringify ({
 
                 }),
-                headers : {"Content-Type" : "multipart/form-data"}
+                headers : {"Content-Type" : "multipart/form-data",
+                "Authorization": `Bearer ${stockToken}`}
             })
             const r = await reponse.json()
         })
