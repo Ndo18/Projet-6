@@ -241,6 +241,11 @@ footer nav ul {
 	color: #1D6154;
 }
 
+.filtresedit{
+	color: white;
+	background-color: #1D6154;
+}
+
 
 /* MODE EDITION */
 
@@ -362,7 +367,7 @@ footer nav ul {
 
 .modale2 h3{
 	text-align: center;
-	margin-top: 40PX;
+	margin-top: 40px;
 }
 
 .gallerymodale{
@@ -380,7 +385,13 @@ footer nav ul {
 	margin-bottom: 20px;
 }
 
-#btnAjouter, #btnValider{
+#btnAjouter{
+	padding: 15px;
+	border: none;
+	margin: auto;
+}
+
+#btnValider{
 	padding: 15px;
 	border: none;
 	margin: auto;
@@ -389,17 +400,18 @@ footer nav ul {
 #formulairecontent {
 	width: 50%;
 	margin: auto;
+	margin-top: 10px;
 }
 
 #formulairecontent form {
 	text-align: left;
-	/* margin-top:30px; */
 	display: flex;
 	flex-direction: column;
 }
 
 #formulairecontent input {
 	height: 50px;
+	margin-top: 10px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -414,6 +426,8 @@ footer nav ul {
 
 #formulairecontent select{
 	height: 50px;
+	margin-top: 10px;
+	margin-bottom: 25px;
 	font-size: 1.2em;
 	border: none;
 	background-color: white;
@@ -430,6 +444,7 @@ footer nav ul {
 	align-items: center;
 	background-color: #E8F1F6;
 }
+
 label[for = ajoutfichier] p{
 	color: #306685;
 	background-color: #CBD6DC;

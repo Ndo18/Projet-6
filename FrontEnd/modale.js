@@ -130,8 +130,6 @@ async function ajoutProjets(){
 
         } else {
             ImgPreview.src = ""
-            // iconeLabel.style.display = "inline"
-            // labelText.classList.remove("hideall")
         }
     })
     //TITRE
@@ -171,20 +169,12 @@ async function ajoutProjets(){
     btnValider.type = "submit"
     btnValider.value = "Valider"
     btnValider.id = "btnValider"
-
-    //BOUTON DISABLED
-    btnValider.addEventListener("change", () => {
-        if(ajoutphotoTitle.value == "" || ImgPreview.src == "" || select.value == ""){
-            btnValider.disabled = true
-        } else {
-            btnValider.disabled = false
-        }
-    })
-
+    // btnValider.disabled = true
+    
     //ENVOI PROJET API
-    modale2.addEventListener("submit", async (event) => {
+    formulaireContent.addEventListener("submit", async (event) => {
         event.preventDefault()
-
+        
         const imgUpload = document.querySelector(".imgpreviewappear").src
         const titreUpload = document.getElementById("titleprojet").value
         const categoryUpload = document.getElementById("catprojet").value
@@ -192,7 +182,7 @@ async function ajoutProjets(){
         console.log(imgUpload);
         console.log(titreUpload);
         console.log(categoryUpload);
-
+        
         if( imgUpload === "" || titreUpload === "" || categoryUpload === ""){
             console.log("Erreur champ(s) manquant(s)");
         } else{
@@ -209,8 +199,16 @@ async function ajoutProjets(){
             })
             const r = await reponse.json()
             console.log(r);
-
+            
             window.location.reload()
+        }
+    })
+    //BOUTON DISABLED
+    formulaireContent.addEventListener("change", () => {
+        if($(".immpreview").src === "" || $("#titleprojet").value === "" || $("#catprojet").value === ""){
+            $("#btnValider").disabled = true
+        } else {
+            $("#btnValider").disabled = false
         }
     })
     
@@ -219,7 +217,6 @@ async function ajoutProjets(){
     modale2.appendChild(modaleTitle)
     modale2.appendChild(previousBtn)
     modale2.appendChild(formulaireContent)
-    modale2.appendChild(btnValider)
     //FORMULAIRE SECTION
     formulaireContent.appendChild(form)
     //ELEMENTS FORMULAIRE
@@ -232,7 +229,7 @@ async function ajoutProjets(){
     form.appendChild(ajoutphotoTitle)
     form.appendChild(labelSelect)
     form.appendChild(select)  
-    
+    form.appendChild(btnValider)  
 }
 
 //AFFICHER PROJETS DANS LA MODALE
