@@ -1,5 +1,4 @@
 const stockToken = localStorage.getItem("token")
-console.log(stockToken);
 
 if(stockToken === null){
     console.log("vous n'êtes pas connecté");

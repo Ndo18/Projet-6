@@ -1,10 +1,12 @@
 //OUVERTURE MODALE
 const btnModif = document.querySelector(".btnmodifier")
 
-btnModif.addEventListener("click", () =>{
-    const modalContainer = document.querySelector(".modale-container")
-    modalContainer.classList.add("modalepop")
-})
+if(stockToken){
+    btnModif.addEventListener("click", () =>{
+        const modalContainer = document.querySelector(".modale-container")
+        modalContainer.classList.add("modalepop")
+    })
+}
 
 function ouvertureModale(){
     //CREATION MODALE
@@ -57,7 +59,7 @@ function ouvertureModale(){
     modale.appendChild(btnAjouter)
     modale.appendChild(previousBtn)
     previousBtn.appendChild(previousArrow)
-  
+    
 }
 ouvertureModale()
 
@@ -88,7 +90,7 @@ async function ajoutProjets(){
     const previousBtn = document.getElementById("previousbtn")
     previousBtn.classList.remove("previous-hide")
     previousBtn.classList.add("previous-btn")
-
+    
     // //PRECEDENT
     previousBtn.addEventListener("click", () => {
         modale2.classList.remove("modale2")
@@ -104,6 +106,8 @@ async function ajoutProjets(){
     formulaireContent.id = "formulairecontent"
     const form = document.createElement("form")
     form.method = "POST"
+    form.action = "http://localhost:5678/api/works"
+    
     //AJOUTER UN FICHIER
     const titreajoutFichier = document.createElement("label")
     titreajoutFichier.setAttribute("for", "ajoutfichier")
@@ -127,7 +131,7 @@ async function ajoutProjets(){
             ImgPreview.src = imageURl
             ImgPreview.classList.remove("imgpreview")
             ImgPreview.classList.add("imgpreviewappear")
-
+            
         } else {
             ImgPreview.src = ""
         }
@@ -169,16 +173,55 @@ async function ajoutProjets(){
     btnValider.type = "submit"
     btnValider.value = "Valider"
     btnValider.id = "btnValider"
-    // btnValider.disabled = true
+    btnValider.disabled = "disabled"
+    btnValider.classList.add("disabled")
+
+
+    //BOUTON DISABLED
+ajoutphotoTitle.addEventListener("change", () => {
+    
+    if (ajouterFichier.files === null || ajoutphotoTitle.value === "" || select.value === "") {
+        console.log("disabled");
+        btnValider.disabled = "disabled"
+        btnValider.classList.add("disabled")
+    } else {
+        btnValider.classList.remove("disabled")
+        btnValider.disabled = ""
+    }
+})
+
+ajouterFichier.addEventListener("change", () => {
+    
+    if (ajouterFichier.files[0] === null || ajoutphotoTitle.value === "" || select.value === "") {
+        console.log("disabled");
+        btnValider.disabled = "disabled"
+        btnValider.classList.add("disabled")
+    } else {
+        btnValider.disabled = ""
+        btnValider.classList.remove("disabled")
+    }
+})   
+
+select.addEventListener("change", () => {
+    
+    if (ajouterFichier.files === null || ajoutphotoTitle.value === "" || select.value === "") {
+        console.log("disabled");
+        btnValider.disabled = "disabled"
+        btnValider.classList.add("disabled")
+    } else {
+        btnValider.classList.remove("disabled")
+        btnValider.disabled = ""
+    }
+})   
     
     //ENVOI PROJET API
     formulaireContent.addEventListener("submit", async (event) => {
         event.preventDefault()
         
-        const imgUpload = document.querySelector(".imgpreviewappear").src
+        const imgUpload = document.querySelector("#ajoutfichier")
         const titreUpload = document.getElementById("titleprojet").value
         const categoryUpload = document.getElementById("catprojet").value
-        const stockToken = localStorage.getItem("token")
+        const stockToken = window.localStorage.getItem("token")
         console.log(imgUpload);
         console.log(titreUpload);
         console.log(categoryUpload);
@@ -187,49 +230,45 @@ async function ajoutProjets(){
             console.log("Erreur champ(s) manquant(s)");
         } else{
             window.localStorage.getItem("token")
+            const body = new FormData()
+            body.append("title", titreUpload)
+            body.append("image", imgUpload.files[0])
+            body.append("category", categoryUpload)
+            
             const reponse = await fetch("http://localhost:5678/api/works", {
-                method : "POST",
-                body : JSON.stringify({
-                    "titre" : titreUpload,
-                    "imageUrl" : imgUpload,
-                    "categoryId" : categoryUpload,
-                }),
-                headers : {"Content-Type" : "multipart/form-data",
-                "Authorization": `Bearer ${stockToken}`}
-            })
+            method : "POST",
+            headers : {"Authorization": "Bearer " + stockToken},
+            body : body
+        })
+        try {
             const r = await reponse.json()
             console.log(r);
-            
-            window.location.reload()
+        } catch(error){
+            console.error("Erreur", error)
         }
-    })
-    //BOUTON DISABLED
-    formulaireContent.addEventListener("change", () => {
-        if($(".immpreview").src === "" || $("#titleprojet").value === "" || $("#catprojet").value === ""){
-            $("#btnValider").disabled = true
-        } else {
-            $("#btnValider").disabled = false
-        }
-    })
-    
-    //ELEMENTS MODALE
-    modalContainer.appendChild(modale2)
-    modale2.appendChild(modaleTitle)
-    modale2.appendChild(previousBtn)
-    modale2.appendChild(formulaireContent)
-    //FORMULAIRE SECTION
-    formulaireContent.appendChild(form)
-    //ELEMENTS FORMULAIRE
-    titreajoutFichier.prepend(labelText)
-    titreajoutFichier.prepend(iconeLabel)
-    titreajoutFichier.prepend(ImgPreview)
-    form.appendChild(titreajoutFichier)
-    form.appendChild(ajouterFichier)
-    form.appendChild(ajoutphotoLabel)
-    form.appendChild(ajoutphotoTitle)
-    form.appendChild(labelSelect)
-    form.appendChild(select)  
-    form.appendChild(btnValider)  
+    }
+    // window.location.reload()
+})
+
+
+//ELEMENTS MODALE
+modalContainer.appendChild(modale2)
+modale2.appendChild(modaleTitle)
+modale2.appendChild(previousBtn)
+modale2.appendChild(formulaireContent)
+//FORMULAIRE SECTION
+formulaireContent.appendChild(form)
+//ELEMENTS FORMULAIRE
+titreajoutFichier.prepend(labelText)
+titreajoutFichier.prepend(iconeLabel)
+titreajoutFichier.prepend(ImgPreview)
+form.appendChild(titreajoutFichier)
+form.appendChild(ajouterFichier)
+form.appendChild(ajoutphotoLabel)
+form.appendChild(ajoutphotoTitle)
+form.appendChild(labelSelect)
+form.appendChild(select)  
+form.appendChild(btnValider)  
 }
 
 //AFFICHER PROJETS DANS LA MODALE
@@ -250,31 +289,28 @@ async function genererImgProjets(){
         /* CRÉATION DE L'ÉLÉMENT IMAGE */
         const imageElement = document.createElement("img")
         imageElement.src = tabProjets[i].imageUrl
-
+        
         //CREATION ICONE SUPPRESSION
         const iconeSupprContent = document.createElement("div")
         iconeSupprContent.classList.add("iconesupp")
         const iconeSuppr = document.createElement("i")
+        iconeSuppr.setAttribute("data-id", tabProjets[i].id)
         iconeSuppr.classList.add("fa-solid", "fa-trash-can")
         //SUPPRESSION PROJETS
-        iconeSuppr.addEventListener("click", async () => {
-            const reponse = await fetch("http://localhost:5678/api/works/{id}", {
-                method : "DELETE",
-                body : JSON.stringify ({
-
-                }),
-                headers : {"Content-Type" : "multipart/form-data",
-                "Authorization": `Bearer ${stockToken}`}
-            })
-            const r = await reponse.json()
+        iconeSuppr.addEventListener("click", (event) => {
+            const id = event.target.getAttribute("data-id")
+            fetch(`http://localhost:5678/api/works/${id}`, {
+            method : "DELETE",
+            headers : {"Authorization": `Bearer ${stockToken}`}
         })
-
-        /* AJOUT DES ÉLÉMENTS À LA STRUCTURE HTML */
-        galleryModale.appendChild(figure)
-        figure.appendChild(iconeSupprContent)
-        figure.appendChild(imageElement)
-        iconeSupprContent.prepend(iconeSuppr)
-    }
+    })
+    
+    /* AJOUT DES ÉLÉMENTS À LA STRUCTURE HTML */
+    galleryModale.appendChild(figure)
+    figure.appendChild(iconeSupprContent)
+    figure.appendChild(imageElement)
+    iconeSupprContent.prepend(iconeSuppr)
+}
 }
 genererImgProjets()
 

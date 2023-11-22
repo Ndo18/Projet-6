@@ -22,11 +22,9 @@ async function connexion() {
                 headers : {"Content-Type": "application/json"},
             })
             const body = await reponse.json()
-            console.log(body);
             window.localStorage.setItem("token", body.token)
             window.location.href="./"
         }
     })
 }
-
 connexion()
